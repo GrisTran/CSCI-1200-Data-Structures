@@ -1,0 +1,78 @@
+void StudentTests(){
+	//In my student test I will test some of the required condition of the rope class funtion to make 
+	//sure they are working well.
+	Rope test_rope(Student_TestRope());
+	string test_string = "Hello this is my own student test";
+	assert(SAME(test_rope, test_string)); 
+	char c = ' ';
+	string s = "";
+	
+	//First we test the case that index overbounce for funtion index
+	test_rope.index(test_string.size()+1, c);
+	assert(c == ' ');
+	test_rope.index(-1,c);
+	assert(c == ' ');
+	cout<<"***Over bounce index test case pass."<<endl;
+	
+	//Then we test the case that indext out of bounce for report function.
+	//case i < 0
+	assert(!test_rope.report(-1,10,s) && s == "");
+	//case i > j
+	assert(!test_rope.report(11,10,s) && s == "");
+	cout<<"***More over bounce index test case pass."<<endl;
+	
+	//Test to make sure if a copy b, when a change, b will not be affect.
+	Rope test_rope2(test_rope);
+	assert(SAME(test_rope2, test_string)); 
+	test_rope2.change_size(1);
+	assert(test_rope2.size() == test_string.size()-1);
+	assert(test_rope.size() == test_string.size());
+	cout<<"***Copy test case pass."<<endl;
+}
+
+Node* Student_TestRope(){
+	Node* ret = new Node;
+	ret->weight = 33;
+	//Left side
+	ret->left = new Node;
+	ret->left->parent = ret;
+	ret->left->weight = 17;
+	ret->left->left = new Node;
+	ret->left->left->parent = ret->left;
+	ret->left->left->weight = 11;
+	ret->left->left->left = new Node;
+	ret->left->left->left->parent = ret->left->left;
+	ret->left->left->left->weight = 6;
+	ret->left->left->left->left = new Node;
+	ret->left->left->left->left->parent = ret->left->left->left;
+	ret->left->left->left->left->weight = 6;
+	ret->left->left->left->left->value = "Hello ";
+	ret->left->left->left->right = new Node;
+	ret->left->left->left->right->parent = ret->left->left->left;
+	ret->left->left->left->right->weight = 5;
+	ret->left->left->left->right->value = "this ";
+	ret->left->left->right = new Node;
+	ret->left->left->right->parent = ret->left->left;
+	ret->left->left->right->weight = 4;
+	ret->left->left->right->left = new Node;
+	ret->left->left->right->left->parent = ret->left->left->right;
+	ret->left->left->right->left->weight = 4;
+	ret->left->left->right->left->value = "is m";
+	ret->left->left->right->right = new Node;
+	ret->left->left->right->right->parent = ret->left->left->right;
+	ret->left->left->right->right->weight = 2;
+	ret->left->left->right->right->value = "y ";
+	//Right side
+	ret->left->right = new Node;
+	ret->left->right->parent = ret->left;
+	ret->left->right->weight = 6;
+	ret->left->right->left = new Node;
+	ret->left->right->left->parent = ret->left->right;
+	ret->left->right->left->weight = 6;
+	ret->left->right->left->value = "own st";
+	ret->left->right->right = new Node;
+	ret->left->right->right->parent = ret->left->right;
+	ret->left->right->right->weight = 10;
+	ret->left->right->right->value = "udent test";
+	return ret;
+}
